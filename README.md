@@ -9,7 +9,7 @@ Simulation: Custom PyGame environment (Physics & Raycasting Sensors).
 AI: PyTorch (Deep Q-Network with Experience Replay).
 
 
-How should you ready your pc or laptop to run this small game:
+How should you ready your pc or laptop to run this small game
 
       you will be needed to install pytorch,pygame and numpy libraries
       
