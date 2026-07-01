@@ -1,23 +1,60 @@
-# Autonomous Car using Deep Q-Learning (DQN)
-
-A self-driving car simulation built from scratch in Python, trained using Reinforcement Learning.
-
-Tech Stack:
-
-Simulation: Custom PyGame environment (Physics & Raycasting Sensors).
-
-AI: PyTorch (Deep Q-Network with Experience Replay).
+# 🚗 Autonomous Navigation Agent using Deep Q-Learning (DQN)
 
 
-How should you ready your pc or laptop to run this small game
 
-      you will be needed to install pytorch,pygame and numpy libraries
-      
-how to start:
-there will be two folders,
-one is autonomous and other_one is normal_game .Inside the normal game folder you will find a main.py and if u run it ,u will find a simple car game.
+## 🧠 Overview
+This project is a custom-built Reinforcement Learning (RL) simulation where an AI agent learns to drive a car and navigate a track autonomously. Instead of relying on pre-packaged environments like OpenAI Gym, the entire physics engine, sensor system, and deep learning model were engineered from scratch.
 
-Inside the autonomous folder u will find a new_main.py.If u run it you will find an DQN autonomus car.
-How it works: The car casts 7 ray-traced "sensors" to measure distance to walls and to messure the distance to a specific goal. These inputs are fed into a Neural Network which outputs steering commands (Left, Straight, Right). The agent learns via a reward system (+1 for survival, minus reward for a crash.
+The agent starts completely blind and learns through trial and error (crashing). By utilizing a **Deep Q-Network (DQN)** and the **Bellman Equation**, it gradually discovers how to map its sensor inputs to optimal steering decisions to reach a target.
 
+## 🛠️ Tech Stack
+* **Language:** Python 3.x
+* **Deep Learning Framework:** PyTorch (Neural Network, Tensors, Backpropagation)
+* **Environment & Physics:** PyGame (Rigid body movement, Collision detection)
+* **Mathematics:** NumPy, Trigonometry (Ray-casting)
+
+## ⚙️ How It Works
+
+### 1. The Environment (MDP)
+The environment acts as a Markov Decision Process. It tracks the car's state, applies physics, and returns rewards.
+* **Ray-Casting Sensors:** The car features custom-built "LIDAR" sensors. It casts 5 rays at different angles to measure the pixel distance to the nearest wall.
+* **State Space:** A 7-dimensional vector consisting of the 5 sensor distances (normalized) and the X/Y coordinate distance to the target goal.
+* **Action Space:** Discrete actions: `0` (Turn Left), `1` (Go Straight), `2` (Turn Right).
+
+### 2. The Brain (Deep Q-Network)
+A fully connected Feed-Forward Neural Network built in PyTorch.
+* **Input Layer:** 7 Neurons (State)
+* **Hidden Layer:** 128 Neurons (ReLU Activation)
+* **Output Layer:** 3 Neurons (Q-Values for each action)
+
+### 3. The Learning Process
+The agent utilizes an **Epsilon-Greedy** strategy to balance exploration (acting randomly to discover the map) and exploitation (using the brain to survive).
+* **Rewards:** `+100` for reaching the goal, `-50` for crashing into a wall, and `+0.5` for surviving a frame.
+* **Training:** After every move, the network calculates the target Q-value using the Bellman Equation and updates its weights using Mean Squared Error (MSE) loss and the Adam optimizer.
+
+---
+
+## 🚀 Installation & Setup
+
+Ensure you have Python 3.8+ installed. 
+clone the repo
+
+2. Create a virtual environment (Recommended)
+
+
+# Windows
+python -m venv venv
+venv\Scripts\activate
+
+# Mac/Linux
+python3 -m venv venv
+source venv/bin/activate
+
+
+3. Install dependencies
+pip install -r requirements.txt
+4. Run the simulation
+
+Bash
+python new_main.py
 
